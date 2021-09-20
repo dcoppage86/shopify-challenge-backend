@@ -1,15 +1,17 @@
 class TagsController < ApplicationController
 
-    def def index
+    def index
         @tags = Tag.all
+        render json: @tags
     end
 
     def create 
-
-    end
-
-    def destroy 
-
+        @tag = post.tags.build(tag_params)
+        if @tag.save
+            render json: @tag, status: :created
+        else
+            render json: @tag.errors.full_messages, status: :unprocessable_entity
+        end
     end
 
     private
